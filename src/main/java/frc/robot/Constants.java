@@ -48,4 +48,26 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+  public static class ArmConstants{
+    public static final int pos10 = 0;
+    public static final int pos11 = 1;
+    public static final int pos12 = 2;
+    public static final int pos13 = 3;
+    public static final int pos20 = 0;
+    public static final int pos21 = 1;
+    public static final int pos22 = 2;
+    public static final int pos23 = 3;
+    public static final int motor1Port = 0;
+    public static final int motor2Port = 0;
+  }
+  public static class WristConstants{
+    public static final int pos0 = 0;
+    public static final int pos1 = 1;
+    public static final int pos2 = 2;
+    public static final int pos3 = 3;
+    public static final int port = 0;
+  }
+  public static class IntakeConstants{
+    public static final int port = 0;
+  }
 }
