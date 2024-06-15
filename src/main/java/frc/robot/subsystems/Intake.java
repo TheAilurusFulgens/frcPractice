@@ -12,6 +12,7 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
   private CANSparkMax intakeMotor = new CANSparkMax(Constants.IntakeConstants.INTAKE_MOTOR_PORT, CANSparkMax.MotorType.kBrushless);
+  
   public Intake(double speed) {
     setIntakeSpeed(speed);
   }

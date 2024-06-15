@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.swervedrive.ArmCommand;
 import frc.robot.commands.swervedrive.IntakeCommand;
 import frc.robot.commands.swervedrive.WristCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -44,6 +46,7 @@ public class RobotContainer
   final CommandPS5Controller armXbox = new CommandPS5Controller(Constants.ContollerConstants.xbox);
   private final Intake intake = new Intake(0);//default speed 0
   private final Wrist wrist = new Wrist(Constants.WristConstants.DEFAULT_POS);
+  private final Arm arm = new Arm(Constants.ArmConstants.DEFAULT_POS);
   
 
   /**
@@ -104,6 +107,9 @@ public class RobotContainer
     armXbox.L1().whileTrue(new IntakeCommand(intake,Constants.IntakeConstants.INTAKE_SPEED));
     armXbox.L2().whileTrue(new IntakeCommand(intake,Constants.IntakeConstants.INTAKE_SPIT_SPEED));
     armXbox.circle().whileTrue(new WristCommand(wrist, Constants.WristConstants.UP_POS));
+    armXbox.cross().whileTrue(new ArmCommand(arm,Constants.ArmConstants.POS_HP));
+    armXbox.square().whileTrue(new ArmCommand(arm,Constants.ArmConstants.POS_LVL2));
+    armXbox.triangle().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POS_LVL3)));
     //armXbox.circle().whileFalse(new WristCommand(wrist,default)) 
     
   }

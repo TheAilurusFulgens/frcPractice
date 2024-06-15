@@ -61,6 +61,15 @@ public final class Constants
     public static final int DEFAULT_POS = 0;
     public static final int UP_POS = 1;
   }
+  public final class ArmConstants{
+    public static final int ARM_MOTOR1_PORT = 1;
+    public static final int ARM_MOTOR2_PORT = 1;
+    public static final double DEFAULT_POS = 1;
+    public static final int POS_HP = 1;//human player feed pos
+    public static final int POS_LVL2 = 1;
+    public static final int POS_LVL3 = 1;
+
+  }
   public static final class ContollerConstants{
     public static final int xbox  = 0;
   }
