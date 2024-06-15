@@ -10,13 +10,16 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.swervedrive.IntakeCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -33,6 +36,9 @@ public class RobotContainer
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandPS5Controller driverXbox = new CommandPS5Controller(0);
+  
+  final CommandPS5Controller armXbox = new CommandPS5Controller(Constants.ContollerConstants.xbox);
+  private final Intake intake = new Intake(0);//default speed 0
   
 
   /**
@@ -85,6 +91,10 @@ public class RobotContainer
     //                                new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
     //                           ));
     // driverXbox.x().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+
+    armXbox.L1().whileTrue(new IntakeCommand(intake,Constants.IntakeConstants.INTAKE_SPEED));
+    armXbox.L2().whileTrue(new IntakeCommand(intake,Constants.IntakeConstants.INTAKE_SPIT_SPEED));
+    
   }
 
   /**
