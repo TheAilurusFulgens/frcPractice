@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArmCommand;
+import frc.robot.commands.ArmWristCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.WristCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -41,8 +42,8 @@ public class RobotContainer
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final CommandPS5Controller driverXbox = new CommandPS5Controller(Constants.ControllerConstants.DRIVER_PORT); // base controller
-  final CommandPS5Controller operatorXbox = new CommandPS5Controller(Constants.ControllerConstants.OPERATOR_PORT); // operator controller
+  final CommandPS5Controller driver = new CommandPS5Controller(Constants.ControllerConstants.DRIVER_PORT); // base controller
+  final CommandPS5Controller operator = new CommandPS5Controller(Constants.ControllerConstants.OPERATOR_PORT); // operator controller
   private final IntakeSubsystem intake = new IntakeSubsystem(Constants.IntakeConstants.STOP_SPEED); // create a intake subsystem with speed 0
   private final WristSubsystem wrist = new WristSubsystem(Constants.WristConstants.POSITION_DOWN); // create a wrist subsystem with pos DOWN
   private final ArmSubsystem arm = new ArmSubsystem(Constants.ArmConstants.POSITION_LEVEL_0); // create a arm subsystem with pos LVL 0
@@ -61,10 +62,10 @@ public class RobotContainer
     // left stick controls translation
     // right stick controls the desired angle NOT angular rotation
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
-        () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> driverXbox.getRightX(),
-        () -> driverXbox.getRightY());
+        () -> MathUtil.applyDeadband(driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> driver.getRightX(),
+        () -> driver.getRightY());
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -72,9 +73,9 @@ public class RobotContainer
     // left stick controls translation
     // right stick controls the angular velocity of the robot
     Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-        () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
-        () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> driverXbox.getRightX() * 2);
+        () -> MathUtil.applyDeadband(-driver.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
+        () -> MathUtil.applyDeadband(-driver.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
+        () -> driver.getRightX() * 2);
 
     drivebase.setDefaultCommand( driveFieldOrientedAnglularVelocity);
   }
@@ -90,14 +91,14 @@ public class RobotContainer
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
-    driverXbox.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-    operatorXbox.L1().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_SPEED));
-    operatorXbox.L2().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_REVERSE_SPEED));
-    operatorXbox.circle().whileTrue(new WristCommand(wrist, Constants.WristConstants.POSITION_UP));
-    operatorXbox.cross().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_1));
-    operatorXbox.square().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_2));
-    operatorXbox.triangle().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_3));
-    
+    driver.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    operator.L1().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_SPEED));
+    operator.L2().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_REVERSE_SPEED));
+    operator.circle().whileTrue(new WristCommand(wrist, Constants.WristConstants.POSITION_UP));
+    operator.cross().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_1));
+    operator.square().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_2));
+    operator.triangle().whileTrue(new ArmWristCommand(arm, Constants.ArmConstants.POSITION_LEVEL_3, wrist, Constants.WristConstants.POSITION_DOWN));
+
 
 
 
