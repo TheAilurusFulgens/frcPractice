@@ -56,6 +56,11 @@ public final class Constants
     public static final int INTAKE_SPEED=1;
     public static final int INTAKE_SPIT_SPEED=-1;
   }
+  public static final class WristConstants{
+    public static final int WRIST_MOTOR_PORT =1;
+    public static final int DEFAULT_POS = 0;
+    public static final int UP_POS = 1;
+  }
   public static final class ContollerConstants{
     public static final int xbox  = 0;
   }
