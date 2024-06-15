@@ -1,3 +1,5 @@
+# USAGE : ./gitpush.sh "your commit message"
+
 # Check if a commit message is provided
 if [ -z "$1" ]; then
   echo "No commit message provided."
@@ -15,7 +17,7 @@ git commit -m "$COMMIT_MSG"
 echo "pushing files to git"
 git push
 echo "--- ALL PROCESSES COMPLETED ---"
-echo "
+cat << 'EOF'
 /$$$$$$                                        
 |_  $$_/                                        
   | $$    /$$$$$$$  /$$$$$$   /$$$$$$   /$$$$$$ 
@@ -26,5 +28,7 @@ echo "
 |______/|_______/  \_______/ \_______/ \____  $$
                                             | $$
                                             | $$
-                                            |_/ 
-                                            "
+                                            |__/ 
+                                           
+EOF
+
