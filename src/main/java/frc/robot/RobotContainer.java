@@ -17,9 +17,11 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.ArmCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.WristCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
@@ -43,6 +45,7 @@ public class RobotContainer
   final CommandPS5Controller operatorXbox = new CommandPS5Controller(Constants.ControllerConstants.OPERATOR_PORT); // operator controller
   private final IntakeSubsystem intake = new IntakeSubsystem(Constants.IntakeConstants.STOP_SPEED); // create a intake subsystem with speed 0
   private final WristSubsystem wrist = new WristSubsystem(Constants.WristConstants.POSITION_DOWN); // create a wrist subsystem with pos DOWN
+  private final ArmSubsystem arm = new ArmSubsystem(Constants.ArmConstants.POSITION_LEVEL_0); // create a arm subsystem with pos LVL 0
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -91,7 +94,10 @@ public class RobotContainer
     operatorXbox.L1().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_SPEED));
     operatorXbox.L2().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_REVERSE_SPEED));
     operatorXbox.circle().whileTrue(new WristCommand(wrist, Constants.WristConstants.POSITION_UP));
-
+    operatorXbox.cross().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_1));
+    operatorXbox.square().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_2));
+    operatorXbox.triangle().whileTrue(new ArmCommand(arm, Constants.ArmConstants.POSITION_LEVEL_3));
+    
 
 
 

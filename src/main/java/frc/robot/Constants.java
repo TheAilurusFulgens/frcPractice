@@ -69,9 +69,8 @@ public final class Constants
   }
   public static class WristConstants
   {
-    public static final int PORT = 0;
     public static final int POSITION_DOWN = 0; //default encoder position
-    public static final int POSITION_UP = 0;  // encoder position for up
+    public static final int POSITION_UP = 1;  // encoder position for up
     public static final double kP = 5e-5;
     public static final double kI = 1e-6;
     public static final double kD = 0;
@@ -89,5 +88,31 @@ public final class Constants
     public static final double minVel = 0;
     public static final double allowedErr = 0;
     public static final int smartMotionSlot = 0;
+    public static final int deviceID = 1;
+  }
+  public static class ArmConstants
+  {
+    public static final double kP = 5e-5;
+    public static final double kI = 1e-6;
+    public static final double kD = 0;
+    public static final double kIz = 0;
+    public static final double kFF = 0.000156;
+    public static final double kMaxOutput = 1;
+    public static final double kMinOutput = -1;
+    public static final double maxRPM = 5700;
+    public static final double maxVel = 2000;
+    public static final double maxAcc = 1500;
+    public static final double maxVoltage = 10;
+    public static final double kS = 0.171;
+    public static final double kV = 0.0597;
+    public static final double kA = 0.009;
+    public static final double minVel = 0;
+    public static final double allowedErr = 0;
+    public static final int smartMotionSlot = 0;
+    public static final int deviceID = 1;
+    public static final int POSITION_LEVEL_0 = 0;  // default encoder position
+    public static final int POSITION_LEVEL_1 = 1;  // HUMAN PLAYER STATION
+    public static final int POSITION_LEVEL_2 = 2;  // SCORE LEVEL 2
+    public static final int POSITION_LEVEL_3 = 3;  // SCORE LEVEL 3
   }
 }

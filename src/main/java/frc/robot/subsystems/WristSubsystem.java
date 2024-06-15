@@ -24,14 +24,14 @@ import frc.robot.Constants.WristConstants;
 
 public class WristSubsystem extends SubsystemBase {
   
-  private static final int deviceID = 1;
+  
   private final CANSparkMax wristMotor;
   private SparkPIDController m_pidController;
   private RelativeEncoder m_encoder;
   
   /** Creates a new WristSubsystem. */
   public WristSubsystem(double position) {
-    wristMotor = new CANSparkMax(deviceID, MotorType.kBrushless);
+    wristMotor = new CANSparkMax(WristConstants.deviceID, MotorType.kBrushless);
 
     /**
      * The RestoreFactoryDefaults method can be used to reset the configuration parameters

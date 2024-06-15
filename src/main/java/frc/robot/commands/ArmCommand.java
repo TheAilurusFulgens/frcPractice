@@ -5,10 +5,16 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmCommand extends Command {
+  ArmSubsystem arm;
+  private final int position;
   /** Creates a new ArmCommand. */
-  public ArmCommand() {
+  public ArmCommand(ArmSubsystem arm, int position) {
+    this.arm = arm;
+    this.position = position;
+    addRequirements(this.arm);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,7 +24,9 @@ public class ArmCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    arm.setArmPosition(position);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
