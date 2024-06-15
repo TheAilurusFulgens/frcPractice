@@ -5,18 +5,18 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
-import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.PosCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -29,11 +29,14 @@ public class RobotContainer
 {
 
   // The robot's subsystems and commands are defined here...
-  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                         "swerve"));
+  private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
+  private final IntakeSubsystem intake = new IntakeSubsystem();
+  private final ArmSubsystem arm = new ArmSubsystem();
+  private final WristSubsystem wrist = new WristSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final CommandPS5Controller driverXbox = new CommandPS5Controller(0);
+  final CommandPS5Controller scoreXbox = new CommandPS5Controller(0);
   
 
   /**
@@ -80,6 +83,13 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     driverXbox.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    scoreXbox.L1().whileTrue(new IntakeCommand(intake, 1));
+    scoreXbox.R1().whileTrue(new IntakeCommand(intake, -1));
+    scoreXbox.circle().whileTrue(new PosCommand(arm, wrist, 2));
+    scoreXbox.triangle().whileTrue(new PosCommand(arm, wrist, 3));
+    scoreXbox.square().whileTrue(new PosCommand(arm, wrist, 1));
+    scoreXbox.cross().whileTrue(new PosCommand(arm, wrist, 0));
+
     // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     // driverXbox.b().whileTrue(
     //     Commands.deferredProxy(() -> drivebase.driveToPose(

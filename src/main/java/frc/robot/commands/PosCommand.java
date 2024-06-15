@@ -5,10 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 
 public class PosCommand extends Command {
-  /** Creates a new PosCommand. */
-  public PosCommand() {
+  /** Creates a new armCommand. */
+  private ArmSubsystem arm;
+  private WristSubsystem wrist;
+  private final int pos;
+  public PosCommand(ArmSubsystem arm, WristSubsystem wrist, int pos) {
+    this.arm = arm;
+    this.wrist = wrist;
+    this.pos = pos;
+    addRequirements(this.arm, this.wrist);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -18,7 +27,10 @@ public class PosCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    arm.setPos(pos);
+    wrist.setPos(pos);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
