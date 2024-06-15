@@ -12,11 +12,23 @@
  */
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class WristSubsystem extends SubsystemBase {
+  private final CANSparkMax wristMotor = new CANSparkMax(Constants.WristConstants.PORT, MotorType.kBrushless);
   /** Creates a new WristSubsystem. */
-  public WristSubsystem() {}
+  public WristSubsystem(double position) {
+    setWristPosition(position);
+  }
+
+  public void setWristPosition(double position) {
+    wristMotor.getEncoder().setPosition(position);
+  }
 
   @Override
   public void periodic() {

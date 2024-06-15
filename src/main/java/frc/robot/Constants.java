@@ -67,4 +67,10 @@ public final class Constants
     public static final int DRIVER_PORT = 0;
     public static final int OPERATOR_PORT = 0;
   }
+  public static class WristConstants
+  {
+    public static final int PORT = 0;
+    public static final int POSITION_DOWN = 0; //default encoder position
+    public static final int POSITION_UP = 0;  // encoder position for up
+  }
 }

@@ -8,6 +8,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.util.WPICleaner;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,8 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.WristCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.WristSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -39,6 +42,7 @@ public class RobotContainer
   final CommandPS5Controller driverXbox = new CommandPS5Controller(Constants.ControllerConstants.DRIVER_PORT); // base controller
   final CommandPS5Controller operatorXbox = new CommandPS5Controller(Constants.ControllerConstants.OPERATOR_PORT); // operator controller
   private final IntakeSubsystem intake = new IntakeSubsystem(Constants.IntakeConstants.STOP_SPEED); // create a intake subsystem with speed 0
+  private final WristSubsystem wrist = new WristSubsystem(Constants.WristConstants.POSITION_DOWN); // create a wrist subsystem with pos DOWN
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -86,6 +90,11 @@ public class RobotContainer
     driverXbox.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
     operatorXbox.L1().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_SPEED));
     operatorXbox.L2().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_REVERSE_SPEED));
+    operatorXbox.circle().whileTrue(new WristCommand(wrist, Constants.WristConstants.POSITION_UP));
+
+
+
+
     // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     // driverXbox.b().whileTrue(
     //     Commands.deferredProxy(() -> drivebase.driveToPose(
