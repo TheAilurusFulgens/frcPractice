@@ -16,7 +16,9 @@ import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
 import java.io.File;
 
@@ -31,9 +33,12 @@ public class RobotContainer
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve"));
 
-  // Replace with CommandPS4Controller or CommandJoystick if needed
-  final CommandPS5Controller driverXbox = new CommandPS5Controller(0);
   
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+  final CommandPS5Controller driverXbox = new CommandPS5Controller(Constants.ControllerConstants.DRIVER_PORT); // base controller
+  final CommandPS5Controller operatorXbox = new CommandPS5Controller(Constants.ControllerConstants.OPERATOR_PORT); // operator controller
+  private final IntakeSubsystem intake = new IntakeSubsystem(Constants.IntakeConstants.STOP_SPEED); // create a intake subsystem with speed 0
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -79,6 +84,8 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
     driverXbox.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+    operatorXbox.L1().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_SPEED));
+    operatorXbox.L2().whileTrue(new IntakeCommand(intake, Constants.IntakeConstants.INTAKE_REVERSE_SPEED));
     // driverXbox.x().onTrue(Commands.runOnce(drivebase::addFakeVisionReading));
     // driverXbox.b().whileTrue(
     //     Commands.deferredProxy(() -> drivebase.driveToPose(

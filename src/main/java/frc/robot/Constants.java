@@ -48,4 +48,23 @@ public final class Constants
     public static final double RIGHT_X_DEADBAND = 0.1;
     public static final double TURN_CONSTANT    = 6;
   }
+  public static class MotorConstants
+  {
+
+    // Motor Ports
+    public static final int INTAKE_MOTOR_PORT = 0;
+
+  }
+  public static class IntakeConstants
+  {
+
+    // Intake Speeds
+    public static final int INTAKE_SPEED = 1;
+    public static final int STOP_SPEED   = 0;
+    public static final int INTAKE_REVERSE_SPEED = -1;
+  }
+  public static class ControllerConstants{
+    public static final int DRIVER_PORT = 0;
+    public static final int OPERATOR_PORT = 0;
+  }
 }
