@@ -4,9 +4,9 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class WristCommand extends CommandBase {
+public class WristCommand extends Command {
   /** Creates a new WristCommand. */
   public WristCommand() {
     // Use addRequirements() here to declare subsystem dependencies.

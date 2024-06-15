@@ -4,9 +4,9 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class ArmCommand extends CommandBase {
+public class ArmCommand extends Command {
   /** Creates a new ArmCommand. */
   public ArmCommand() {
     // Use addRequirements() here to declare subsystem dependencies.
